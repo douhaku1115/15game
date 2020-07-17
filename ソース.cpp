@@ -15,14 +15,28 @@ char cellAA[][2 + 1] = {
 };
 int board[BOARD_HEIGHT][BOARD_WIDTH];
 
+void swap(int _x,int _y) {
+
+}
+void display() {
+
+}
+void init(){
+	printf("+--+--+--+--+\n");
+	for (int y = 0; y < BOARD_HEIGHT; y++) {
+		for (int x = 0; x < BOARD_WIDTH; x++) {
+			board[y][x] = y * BOARD_WIDTH + x;
+			printf("|%2d", board[y][x]);
+		}
+		printf("|\n");
+		printf("+--+--+--+--+\n");
+	}
+}
 
 int main() {
+	init();                               //‰ŠúÝ’è  
 
-	for (int x = 0; x < FIELD_HEIGHT; x++) {
-		for (int y = 0; y < FIELD_WIDTH; y++)
-			board[y][x] = y * BOARD_WIDTH + x;
 
-	}
-	printf("good");
+	
 	_getch();
 }

@@ -62,15 +62,21 @@ VEC2 getSBlankPos() {
 
 				return blankPos = { i,j };
 }
-void swap(int *x,int *y) {
-	int* temp = x;
-	x = y;
-	y = temp;
+void swap(VEC2* i,VEC2* j) {
+	VEC2 *temp = i;
+	i = j;
+	j = temp;
 
 }
 bool check(VEC2 pos) {
 	if(pos.x!=0 && pos.y!=0)
 	return true;
+}
+void movToBlank(VEC2 _movePos) {
+	VEC2 blankPos = getSBlankPos();
+	int temp = board[blankPos.y][blankPos.x];
+	board[blankPos.y][blankPos.x] = board[_movePos.y][_movePos.x];
+	board[_movePos.y][_movePos.x] = temp;
 }
 int main() {
 	init();  //èâä˙ê›íË 
@@ -78,24 +84,27 @@ int main() {
 	display();
 	move();
 
+	
+
 	while (1) {
-		VEC2 x, y;
+		VEC2 blankPos = getSBlankPos();
+		VEC2 movePos=blankPos;
 		if (_kbhit()) {
 
 
 			switch (_getch()) {
 			case'w':
-				if (check(getSBlankPos()) != 0)
-					; break;
-				board[2][3] = 16; board[3][3] = 12; break;
+				movePos.y++;; break;
 			case's':
-				if(check(getSBlankPos() )!=0); break;
-			case'd':
-				; break;
+				movePos.y--; break;
 			case'a':
-				; break;
+				movePos.x++; break;
+			case'd':
+				movePos.x--; break;
 			}
+			movToBlank(movePos);
 		}
+		//swap(&blankPos, &movePos);
 		display();
 	}
 

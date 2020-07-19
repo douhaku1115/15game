@@ -44,9 +44,7 @@ void init(){
 		for (int x = 0; x < BOARD_WIDTH; x++) 
 			board[y][x] = y * BOARD_WIDTH + x+1;
 }
-void shuffle() {
 
-}
 void move() {
 
 }
@@ -73,17 +71,40 @@ bool check(VEC2 pos) {
 	return true;
 }
 void movToBlank(VEC2 _movePos) {
-	VEC2 blankPos = getSBlankPos();
-	int temp = board[blankPos.y][blankPos.x];
-	board[blankPos.y][blankPos.x] = board[_movePos.y][_movePos.x];
-	board[_movePos.y][_movePos.x] = temp;
+	if (board[_movePos.y][_movePos.x] == 0) return;
+
+		VEC2 blankPos = getSBlankPos();
+		int temp = board[blankPos.y][blankPos.x];
+		board[blankPos.y][blankPos.x] = board[_movePos.y][_movePos.x];
+		board[_movePos.y][_movePos.x] = temp;
+
+		
+}
+void shuffle() {
+	
+	srand((unsigned int)time(NULL));
+	for (int i = 0; i < 100; i++) {
+		VEC2 blankPos = getSBlankPos();
+		VEC2 movePos = blankPos;
+		switch (rand()%4) {
+		case 0:
+			movePos.y++;; break;
+		case 1:
+			movePos.y--; break;
+		case 2:
+			movePos.x++; break;
+		case 3:
+			movePos.x--; break;
+		}
+		movToBlank(movePos);
+	}
+
 }
 int main() {
 	init();  //‰ŠúÝ’è 
 	shuffle();
 	display();
-	move();
-
+	
 	
 
 	while (1) {

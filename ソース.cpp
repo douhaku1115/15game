@@ -45,9 +45,7 @@ void init(){
 			board[y][x] = y * BOARD_WIDTH + x+1;
 }
 
-void move() {
 
-}
 int getField(int _x, int _y) {
 	return board[_y][_x];
 }
@@ -66,9 +64,13 @@ void swap(VEC2* i,VEC2* j) {
 	j = temp;
 
 }
-bool check(VEC2 pos) {
-	if(pos.x!=0 && pos.y!=0)
+bool check() {
+	for (int i = 0; i < BOARD_HEIGHT; i++)
+		for (int j = 0; j < BOARD_WIDTH; j++)
+			if (board[i][j] != BOARD_WIDTH * i + j + 1)
+				return false;
 	return true;
+
 }
 void movToBlank(VEC2 _movePos) {
 	if (board[_movePos.y][_movePos.x] == 0) return;
@@ -83,7 +85,7 @@ void movToBlank(VEC2 _movePos) {
 void shuffle() {
 	
 	srand((unsigned int)time(NULL));
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 10; i++) {
 		VEC2 blankPos = getSBlankPos();
 		VEC2 movePos = blankPos;
 		switch (rand()%4) {
@@ -126,6 +128,7 @@ int main() {
 			movToBlank(movePos);
 		}
 		//swap(&blankPos, &movePos);
+		if (check())printf("success!!");
 		display();
 	}
 
